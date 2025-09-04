@@ -13,12 +13,11 @@ const Head = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(searchQuery);
     const timer = setTimeout(() => {
-      if(searchCache[searchQuery]) {
+      if (searchCache[searchQuery]) {
         setSuggestions(searchCache[searchQuery]);
-      } else{
-        getSearchSuggestions()
+      } else {
+        getSearchSuggestions();
       }
     }, 200);
 
@@ -28,14 +27,14 @@ const Head = () => {
   }, [searchQuery]);
 
   const getSearchSuggestions = async () => {
-    const data = await fetch(YOUTUBE_SEARCH_API  + searchQuery);
+    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
     const json = await data.json();
     setSuggestions(json[1]);
     // console.log(json[1]);
 
     dispatch(
       cacheResults({
-        [searchQuery]:json[1],
+        [searchQuery]: json[1],
       })
     );
   };
@@ -71,15 +70,15 @@ const Head = () => {
             onFocus={() => setShowSuggestions(true)}
             onBlur={() => setShowSuggestions(false)}
           />
-          <button className="border border-gray-400 p-2 bg-gray-100 rounded-r-full">
+          <button className="border border-gray-400 px-2 py-2 bg-gray-100 rounded-r-full">
             Search
           </button>
         </div>
         {showSuggestions && (
-          <div className="fixed bg-white py-2 px-5 w-[29rem] shodow-lg rounded-lg border border-gray-100">
+          <div className="fixed bg-white py-2 px-2 w-[29rem] shodow-lg rounded-lg border border-gray-100">
             <ul>
               {suggestions.map((s) => (
-                <li key={s} className="py-2 shadow-sm hover:bg-gray-100">
+                <li key={s} className="py-2 px-3 shadow-sm hover:bg-gray-100">
                   🔍{s}
                 </li>
               ))}
